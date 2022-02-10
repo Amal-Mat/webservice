@@ -12,10 +12,7 @@ Getting Started:
 
 - Install Dependencies
     - cd webservice
-    - npm install express
-    - npm install cors
-    - npm install dotenv
-    - npm install -g nodemon
+    - npm install
 
 
 - Build and run the project
