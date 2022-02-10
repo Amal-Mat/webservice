@@ -17,6 +17,7 @@ Getting Started:
     - npm install dotenv
     - npm install -g nodemon
 
+
 - Build and run the project
     - npm start
 
