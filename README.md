@@ -16,9 +16,17 @@ Getting Started:
     - npm install cors
     - npm install dotenv
     - npm install -g nodemon
-    - npm install mocha
-    - npm install supertest
+
 
 - Build and run the project
-    npm start
+    - npm start
+
+Testing:
+- The test case is written using Mocha and Supertest -
+
+    - "mocha": "^9.2.0",
+    - "supertest": "^6.2.2"
+
+- Running tests using NPM Scripts
+    - npm run test
   
