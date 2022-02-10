@@ -8,16 +8,16 @@ Pre-requisites:
 
 Getting Started:
 - Clone the repository
-    git clone https://github.com/Amal-Mat/webservice.git
+    - git clone https://github.com/Amal-Mat/webservice.git
 
 - Install Dependencies
-    cd webservice
-    npm install express
-    npm install cors
-    npm install dotenv
-    npm install -g nodemon
-    npm install mocha
-    npm install supertest
+    - cd webservice
+    - npm install express
+    - npm install cors
+    - npm install dotenv
+    - npm install -g nodemon
+    - npm install mocha
+    - npm install supertest
 
 - Build and run the project
     npm start
