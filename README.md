@@ -1,7 +1,7 @@
 # webservice
 CSYE6225 Workspace
 
-# Assignment#1
+# Assignment-1
 
 Pre-requisites:
 - Install Node.js 
