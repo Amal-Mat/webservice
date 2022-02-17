@@ -19,7 +19,6 @@ app.use(function(req, res, next) {
     next();
 });
 
-
 db.sequelize.sync();
 
 const port = process.env.PORT || 3000;

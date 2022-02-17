@@ -1,5 +1,5 @@
-/* const router = require('../routes/router.js');
-const {getUserByUsername, comparePasswords} = require('../routes/router.js');
+const router = require('../routes/router.js');
+const {getUserByUsername, comparePasswords} = require('../Controller/usersController.js');
 
 function baseAuthentication() {
     return [async (req, res, next) => {
@@ -31,4 +31,4 @@ function baseAuthentication() {
     }];
 }
 
-module.exports = baseAuthentication; */
+module.exports = baseAuthentication;
