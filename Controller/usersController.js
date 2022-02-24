@@ -77,6 +77,11 @@ async function updateUser(req, res, next) {
     if(req.body.username != req.user.username) {
         res.status(400);
     }
+    if(!req.body.first_name || !req.body.last_name || !req.body.username || !req.body.password) {
+        res.status(400).send({
+            message: 'Enter all parameters!'
+        });
+    }
     User.update({
         first_name: req.body.first_name,
         last_name: req.body.last_name,
