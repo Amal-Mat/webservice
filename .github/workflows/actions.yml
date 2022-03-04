@@ -4,8 +4,7 @@
 name: Node.js CI
 
 on:
-  push:
-    branches: [ main ]
+  
   pull_request:
     branches: [ main ]
 
@@ -29,3 +28,11 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
+
+    - name: Validate Template
+      uses: hashicorp/packer-github-actions@main
+      with: 
+        command: validate
+        arguments: -syntax-only
+        target: ami.json
+  
