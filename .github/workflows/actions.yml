@@ -30,7 +30,7 @@ jobs:
     - run: npm test
 
     - name: Validate Template
-      uses: hashicorp/packer-github-actions@main
+      uses: hashicorp/packer-github-actions@master
       with: 
         command: validate
         arguments: -syntax-only
