@@ -34,5 +34,5 @@ jobs:
       with: 
         command: validate
         arguments: -syntax-only
-        target: ami.json
+        target: ./packer/ami.json
   
