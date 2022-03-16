@@ -20,7 +20,7 @@
         "ssh_username": "{{user `ssh_username`}}",
         "ami_name": "csye6225_{{timestamp}}",
         "ami_description": "Linux 2 AMI for csye6225",
-        "ami_users": ["394820470736", "570511740255"],
+        "ami_users": ["570511740255"],
         "ami_block_device_mappings": [
             {
                 "delete_on_termination": true,
@@ -66,14 +66,7 @@
         {
             "type": "shell",
             "inline" : [
-                "sudo yum -y install https://dev.mysql.com/get/mysql80-community-release-el7-5.noarch.rpm",
-                    "echo 'Install community server'",
-                    "sudo yum -y install mysql-community-server",
-                    "sudo systemctl enable --now mysqld",
-                    "systemctl status mysqld",
-                    "passwords=$(sudo grep 'temporary password' /var/log/mysqld.log | awk {'print $13'})",
-                    "mysql --connect-expired-password -u root -p$passwords -e \"ALTER USER 'root'@'localhost' IDENTIFIED BY 'Boston@2021';\"",
-                    "mysql -u root -pBoston@2021 -e \"create database usersDB;\""
+                "sleep 10"
             ]
         }
     ]
