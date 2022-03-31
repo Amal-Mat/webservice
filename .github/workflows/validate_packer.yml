@@ -9,7 +9,7 @@ on:
 jobs:
 
   packer:
-    runs-on: ubuntu-latest
+    runs-on: ec2-user
     steps:
     - name: checkout repository
       uses: actions/checkout@v2
