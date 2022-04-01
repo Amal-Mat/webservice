@@ -28,7 +28,7 @@ sleep 10
 sudo yum install wget
 sleep 10
 cd /home/ec2-user
-wget https://csye6225-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install
+wget https://csye-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install
 sleep 10
 chmod +x ./install
 sudo ./install auto
