@@ -5,7 +5,7 @@
         "aws_region": "",
         "subnet_id": "",
         "source_ami": "",
-        "ssh_username": "ec2-user"
+        "ssh_username": ""
     },
     "builders": [
     {
@@ -43,11 +43,6 @@
                 "FOO=foo"
             ],
             "script": "provisioners.sh"
-        },
-        {
-            "type": "file",
-            "source": "../",
-            "destination": "/home/ec2-user/node-app"
         },
         {
             "type": "shell",
