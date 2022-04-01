@@ -3,14 +3,6 @@
 
 name: Node.js CI
 
-env: 
-  ARTIFACT_NAME: webapp
-  CODEDEPLOY_APPLICATION_NAME: webapp
-  CODEDEPLOY_APPLICATION_DEPLOYMENT_GROUP: csye6225-webapp-deployment
-  AWS_REGION: us-east-1
-  ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  SECRET_KEY: ${{ secrets.AWS_SECRET_ACCCESS_KEY }}
-
 on:
   
   pull_request:
@@ -19,7 +11,7 @@ on:
 jobs:
   build:
 
-    runs-on: ec2-user
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
@@ -43,39 +35,5 @@ jobs:
         command: validate
         arguments: -syntax-only
         target: ./packer/ami.json
-
-    - name: Build Deployment artifacts
-      run: |
-        mkdir codedeploy_artifact
-        ls -al
-        zip -r ${{ env.ARTIFACT_NAME }} package.json dist codedeploy/*.sh appspec.yml package-lock.json 
-        pwd
-        ls -al
-        mv ${{ env.ARTIFACT_NAME }}.* codedeploy_artifact
-        pwd
-        cd codedeploy_artifact
-        cd ..
-        pwd
-        ls -al
-
-    - name: Copy artifacts to S3
-      run: |
-        aws s3 sync ./codedeploy_artifact s3://${{secrets.S3_CODEDEPLOY_BUCKET}}
-
-    - name: Codedeploy API Call
-      run: |
-        output=$(aws deploy create-deployment \
-          --application-name ${{ env.CODEDEPLOY_APPLICATION_NAME }} \
-          --deployment-config-name CodeDeployDefault.AllAtOnce \
-          --deployment-group-name ${{ env.CODEDEPLOY_APPLICATION_DEPLOYMENT_GROUP }} \
-          --description "CSYE6225 - CodeDeploy" \
-          --s3-location bucket=${{ secrets.S3_CODEDEPLOY_BUCKET }},key=${{ env.ARTIFACT_NAME }}.zip,bundleType=zip \
-          --region ${{ env.AWS_REGION }} \
-          --output json)
-
-          echo $output
-
-          dId=$(echo $output | jq -r '.deploymentId')
-          aws deploy wait deployment-successful --deployment-id $dId
 
   

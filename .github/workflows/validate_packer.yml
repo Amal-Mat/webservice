@@ -1,6 +1,13 @@
 
 name: Packer Validation
 
+env: 
+  CI: true
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  ssh_username: "ec2-user"
+  GITHUB_REPO_PATH: ${{ github.workspace }}
+
 on:
   push:
     branches: [ main ]
@@ -9,14 +16,51 @@ on:
 jobs:
 
   packer:
-    runs-on: ec2-user
+    runs-on: ubuntu-latest
     steps:
     - name: checkout repository
       uses: actions/checkout@v2
     
-    - name: Build Packer Template
-      uses: ExitoLab/packer_build_action_aws@v0.2.10
+    # - name: Build Packer Template
+    #   uses: ExitoLab/packer_build_action_aws@v0.2.10
+    #   with:
+    #     templateFile: 'ami.json'
+    #     workingDir: 'packer'
+    #     varFile: 'dev-vars.json'
+    
+    # Build Zip file
+    - name: Build Zip file
+      run: |
+        echo "PWD: $(pwd)"
+        cd ../
+        zip -r webservice.zip webservice
+        ls -l
+        echo "PWD: $(pwd)"
+        cd webservice
+        echo "mkdir"; mkdir appDir
+        cp ../webservice.zip appDir
+        ls -l appDir
+        echo $GITHUB_PATH
+
+    - name: Build Artifacts
+      uses: hashicorp/packer-github-actions@master
       with:
-        templateFile: 'ami.json'
-        workingDir: 'packer'
-        varFile: 'dev-vars.json'
+        command: build
+        arguments: "-color=false -on-error=abort"
+        target: ./packer/ami.json
+
+    - name: Configuring AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with: 
+        aws-access-key-id: ${{ secrets.GHUSER_ACTION_KEY }}
+        aws-secret-access-key: ${{ secrets.GHUSER_SECRET_KEY }}
+        aws-region: us-east-1
+
+    - name: Configuring Artifacts to S3
+      run: | 
+        rm -rf aws
+        aws deploy push --application-name-csye6225webapp --description "Copying the latest version for csye6225webapplication-${{ github.sha }}.zip" --ignore-hidden-files --s3-location s3://csye6225-codededploy-us-east-1/csye6225-webapplication-${{ github.sha }}.zip --source .
+
+    - name: Using Code Deploy
+      run: |
+        aws deploy create-deployment --application-name csye6225webapp --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name csye6225-webapp-deployment --file-exists-behavior OVERWRITE --s3-location bucket=csye6225-codedeploy-us-east-1,key=csye6225-webapplication-${{ github.sha }}.zip,bundleType=zip
