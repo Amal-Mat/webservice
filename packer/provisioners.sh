@@ -21,6 +21,8 @@ sleep 10
 # chown ec2-user:ec2-user /home/ec2-user/node-app
 
 #Install CodeDeploy Agent
+sudo yum install -y ruby
+sudo yum install -y wget
 cd /home/ec2-user
 wget https://aws-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install
 sleep 10
