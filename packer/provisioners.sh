@@ -34,7 +34,7 @@ sudo service codedeploy-agent start
 sudo service codedeploy-agent status
 
 ls
-cd /tmp/
+cd /home/runner/work/webservice/appdir
 echo "$(pwd)"
 ls
 cp webservice.zip /home/ec2-user/
