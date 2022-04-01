@@ -35,10 +35,12 @@ sudo service codedeploy-agent status
 
 ls
 cd /home/runner/work/webservice/appdir
+ls
 echo "$(pwd)"
 ls
 cp webservice.zip /home/ec2-user/
 cd /home/ec2-user/
+ls
 unzip -q webservice.zip
 ls -ltr
 chown ec2-user:ec2-user /home/ec2-user/webservice
