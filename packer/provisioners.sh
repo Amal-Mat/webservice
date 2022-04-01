@@ -37,14 +37,14 @@ sudo service codedeploy-agent status
 sudo service codedeploy-agent start
 sudo service codedeploy-agent status
 
-# ls
-# cd /tmp/
-# echo "$(pwd)"
-# ls
-# cp webservice.zip /home/ec2-user/
-# cd /home/ec2-user/
-# unzip -q webservice.zip
-# ls -ltr
-# chown ec2-user:ec2-user /home/ec2-user/webservice
-# cd webservice
-# ls -ltr
+ls
+cd /tmp/
+echo "$(pwd)"
+ls
+cp webservice.zip /home/ec2-user/
+cd /home/ec2-user/
+unzip -q webservice.zip
+ls -ltr
+chown ec2-user:ec2-user /home/ec2-user/webservice
+cd webservice
+ls -ltr
