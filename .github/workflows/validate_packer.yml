@@ -38,9 +38,12 @@ jobs:
         ls -l
         echo "PWD: $(pwd)"
         cd webservice
+        ls
         echo "mkdir appDir"; mkdir appDir
         ls
         cp ../webservice.zip appDir
+        echo "PWD: $(pwd)"
+        ls
         ls -l appDir
         echo $GITHUB_PATH
 

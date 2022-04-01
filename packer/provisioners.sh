@@ -34,7 +34,7 @@ sudo service codedeploy-agent start
 sudo service codedeploy-agent status
 
 ls
-cd /home/runner/work/webservice/appdir
+cd /home/runner/work/webservice/appDir
 ls
 echo "$(pwd)"
 ls
