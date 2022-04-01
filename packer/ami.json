@@ -42,7 +42,7 @@
             "environment_vars": [
                 "FOO=foo"
             ],
-            "script": "provisioners.sh"
+            "script": "./packer/provisioners.sh"
         },
         {
             "type": "shell",
