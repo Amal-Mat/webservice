@@ -22,7 +22,7 @@ sleep 10
 
 #Install CodeDeploy Agent
 cd /home/ec2-user
-wget https://csye-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install
+wget https://aws-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install
 sleep 10
 chmod +x ./install
 sudo ./install auto
