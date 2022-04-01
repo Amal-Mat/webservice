@@ -46,20 +46,6 @@
         },
         {
             "type": "shell",
-            "inline": [
-                "cd /home/ec2-user/node-app",
-                "sudo npm install",
-                "sudo pm2 start index.js",
-                "sudo pm2 startup systemd",
-                "sudo pm2 save",
-                "sudo ln -s /home/ec2-user/node-app/webapp.service /etc/systemd/system/webapp.service",
-                "sudo systemctl daemon-reload",
-                "sudo systemctl enable webapp.service",
-                "sudo systemctl start webapp.service"
-            ]
-        },
-        {
-            "type": "shell",
             "inline" : [
                 "sleep 10"
             ]
