@@ -45,6 +45,11 @@
             "script": "./packer/provisioners.sh"
         },
         {
+            "type": "file",
+            "source": "{{user `GITHUB_PATH`}}/appDir/webservice.zip",
+            "destination": "/tmp/webservice.zip"
+        },
+        {
             "type": "shell",
             "inline" : [
                 "sleep 10"
