@@ -52,7 +52,7 @@ jobs:
       with:
         command: build
         arguments: "-color=false -on-error=abort"
-        target: ./packer/ami.json
+        target: ./packer/ami.json.pkr.hcl
 
     - name: Configuring Artifacts to S3
       run: | 
