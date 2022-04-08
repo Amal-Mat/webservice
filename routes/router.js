@@ -3,11 +3,19 @@ const baseAuthentication = require('../util/auth.js');
 const userController = require('../Controller/usersController.js');
 const imageController = require('../Controller/imageController.js');
 const multer = require('multer');
+const dbConfig = require('../config/configDB.js');
+const logger = require("../config/logger");
+const SDC = require('statsd-client');
+const sdc = new SDC({host: dbConfig.METRICS_HOSTNAME, port: dbConfig.METRICS_PORT});
+var start = new Date();
 
 // GET Method
 
 router.get("/healthz", (req, res) => {
     console.log("Is it hitting?")
+    sdc.timing('health.timeout', start);
+    logger.info("/health running fine");
+    sdc.increment('endpoint.health');
     res.sendStatus(200).json();
 });
 

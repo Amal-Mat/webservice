@@ -6,31 +6,12 @@ files:
     destination: /home/ec2-user/webservice
 
 hooks:
-  # BeforeInstall:
-  #   - location: ./codedeploy/beforeInstall.sh
-  #     timeout: 300
-  #     runas: ec2-user
-
-  # AfterInstall:
-  #   - location: ./codedeploy/afterInstall.sh
-  #     timeout: 300
-  #     runas: ec2-user
-
-  # ApplicationStart: 
-  #   - location: ./codedeploy/applicationStart.sh
-  #     timeout: 300
-  #     runas: ec2-user
-
-  # ApplicationStop:
-  #   - location: ./codedeploy/applicationStop.sh
-  #     timeout: 300
-  #     runas: ec2-user
   ApplicationStart:
     - location: scripts/run.sh
-      timeout: 300
+      timeout: 600
       runas: ec2-user
 
   ValidateService:
     - location: scripts/validateservice.sh
-      timeout: 300
+      timeout: 600
       runas: ec2-user

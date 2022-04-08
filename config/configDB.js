@@ -20,7 +20,9 @@ const config = {
             acquire: 30000,
             idle: 10000
         }
-    }
+    },
+    METRICS_HOSTNAME: "localhost",
+    METRICS_PORT: 8125
 };
 
 module.exports = config;
