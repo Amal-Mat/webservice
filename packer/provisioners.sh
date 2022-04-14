@@ -4,11 +4,14 @@ sleep 30
 
 sudo yum update -y
 sleep 10
+sudo yum install ruby wget unzip -y
+sleep 10
 sudo yum install git make gcc -y
 sleep 10
 sudo amazon-linux-extras install epel
 sleep 10
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash ~/.nvm/nvm.sh
+sleep 10
 sudo yum install -y gcc-c++ make
 sleep 10
 curl -sL https://rpm.nodesource.com/setup_14.x | sudo -E bash -
@@ -17,5 +20,49 @@ sleep 10
 sudo npm install -g pm2
 sleep 10
 
-mkdir /home/ec2-user/node-app
-chown ec2-user:ec2-user /home/ec2-user/node-app
+# mkdir /home/ec2-user/node-app
+# chown ec2-user:ec2-user /home/ec2-user/node-app
+
+#Install CodeDeploy Agent
+cd /home/ec2-user
+wget https://aws-codedeploy-us-east-1.s3.us-east-1.amazonaws.com/latest/install
+sleep 10
+chmod +x ./install
+sudo ./install auto
+sleep 10
+sudo service codedeploy-agent status
+sudo service codedeploy-agent start
+sudo service codedeploy-agent status
+sleep 10
+
+# Install Cloud Watch Agent
+sudo yum install amazon-cloudwatch-agent -y
+
+# Start CloudWatch Agent
+sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
+-a fetch-config \
+-m ec2 \
+-c file:/home/ec2-user/webservice/statsd/config.json \
+-s
+
+ls
+cd /tmp/
+ls
+echo "$(pwd)"
+ls
+cp webservice.zip /home/ec2-user/
+cd /home/ec2-user/
+ls
+unzip -q webservice.zip
+ls -ltr
+chown ec2-user:ec2-user /home/ec2-user/webservice
+cd webservice
+sudo rm -rf webapp.service
+ls -ltr
+
+sudo npm i
+sleep 30
+sudo pm2 start index.js
+sudo pm2 save
+sudo pm2 startup systemd
+sudo pm2 restart all --update-env

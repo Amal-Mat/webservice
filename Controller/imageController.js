@@ -9,6 +9,10 @@ const fileService = require('../services/file');
 const AWS = require('aws-sdk');
 const fs = require('fs');
 const { getUserByUsername } = require('./usersController.js');
+const logger = require("../config/logger");
+const SDC = require('statsd-client')
+const dbConfig = require('../config/configDB.js');
+const sdc = new SDC({host: dbConfig.METRICS_HOSTNAME, port: dbConfig.METRICS_PORT});
 
 
 // Creating a new instance of S3 -
@@ -51,6 +55,7 @@ async function updateUserPic(req, res, next) {
     const mimetype = filetypes.test(req.file.mimetype);
 
     if (!mimetype && !extname) {
+        logger.error("Image File not supported");
         res.status(400).send({
             message: 'Unsupported File Type'
         });
@@ -83,6 +88,7 @@ async function getUserPic(req, res, next) {
             user_id: image.user_id
         });
     } else {
+        logger.error("No Image found!");
         res.status(404).send({
             message: 'No Image found!'
         });

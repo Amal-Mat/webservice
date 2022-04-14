@@ -1,5 +1,9 @@
 const router = require('../routes/router.js');
 const {getUserByUsername, comparePasswords} = require('../Controller/usersController.js');
+const logger = require("../config/logger");
+const SDC = require('statsd-client');
+const dbConfig = require('../config/configDB.js');
+const sdc = new SDC({host: dbConfig.METRICS_HOSTNAME, port: dbConfig.METRICS_PORT});
 
 function baseAuthentication() {
     return [async (req, res, next) => {
@@ -13,6 +17,7 @@ function baseAuthentication() {
         var isValid;
         await getUserByUsername(username, password).then(async (res) => {
             if (!res) {
+                logger.error("Invalid Authentication Credentials: 400");
                 return res.status(401).json({
                     message: 'Invalid Authentication Credentials'
                 });
@@ -21,6 +26,7 @@ function baseAuthentication() {
         });
 
         if (!isValid) {
+            logger.error("Invalid Authentication Credentials: 400");
             return res.status(401).json({
                 message: 'Invalid Authentication Credentials'
             });
