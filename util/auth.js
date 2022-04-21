@@ -21,19 +21,25 @@ function baseAuthentication() {
                 return res.status(401).json({
                     message: 'Invalid Authentication Credentials'
                 });
+            } else {
+                isValid = await comparePasswords(password, res.dataValues.password);
+                if (!isValid) {
+                    logger.error("Invalid Authentication Credentials: 400");
+                    return res.status(401).json({
+                        message: 'Invalid Authentication Credentials'
+                    });
+                } else {
+                    if(!res.dataValues.isVerified) {
+                        return res.status(401).join({
+                            message: 'User not verified!'
+                        });
+                    } else {
+                        req.user = {username: username, password: password};
+                        next();
+                    } 
+                }   
             }
-            isValid = await comparePasswords(password, res.dataValues.password);
         });
-
-        if (!isValid) {
-            logger.error("Invalid Authentication Credentials: 400");
-            return res.status(401).json({
-                message: 'Invalid Authentication Credentials'
-            });
-        } else {
-            req.user = {username: username, password: password};
-            next();
-        }
     }];
 }
 
