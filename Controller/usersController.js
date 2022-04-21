@@ -99,7 +99,7 @@ async function createUser (req, res, next) {
         const params = {
             Message: JSON.stringify(msg),
             Subject: randomnanoID,
-            TopicArn: 'arn:aws:sns:us-east-1:570511740255:verify_email'
+            TopicArn: 'arn:aws:sns:us-east-1:394820470736:verify_email'
         }
         var publishTextPromise = await sns.publish(params).promise();
 
