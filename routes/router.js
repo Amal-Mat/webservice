@@ -47,4 +47,12 @@ router.get("/v1/user/self/pic", baseAuthentication(), imageController.getUserPic
 
 router.delete("/v1/user/self/pic", baseAuthentication(), imageController.deleteUserPic);
 
+// Delete all users from User Table
+
+router.delete("/v1/deleteAll", userController.deleteAllUsers);
+
+// Verify User
+
+router.get("/v1/user/verifyUserEmail", userController.verifyUser);
+
 module.exports = router; 
