@@ -7,6 +7,9 @@ sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl \
 -c file:/home/ec2-user/webservice/statsd/config.json \
 -s
 
+echo "CW Start"
+# echo netstat -an | grep 8125
+
 #Start App
 cd /home/ec2-user/webservice
 sudo rm -rf webapp.service
