@@ -11,7 +11,7 @@ var start = new Date();
 
 // GET Method
 
-router.get("/healthz", (req, res) => {
+router.get("/health", (req, res) => {
     console.log("Is it hitting?")
     sdc.timing('health.timeout', start);
     logger.info("/health running fine");
@@ -19,9 +19,13 @@ router.get("/healthz", (req, res) => {
     res.sendStatus(200).json();
 });
 
+// router.get("/health", (req, res) => {
+//     res.sendStatus(200).json();
+// })
+
 // POST Method
 
-router.post("/v2/user", userController.createUser);
+router.post("/v1/user", userController.createUser);
 
 // GET Method (With Authentication)
 
